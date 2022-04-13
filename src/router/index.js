@@ -18,7 +18,7 @@ export const baseRoutes = [
 		component: () => import('@/views/login/index'),
 		hidden: true,
 		meta: {
-			title: '用户登录'
+			title: 'login'
 		}
 	},
 	{
@@ -26,7 +26,7 @@ export const baseRoutes = [
 		component: () => import('@/views/error/404'),
 		hidden: true,
 		meta: {
-			title: '未定义页面'
+			title: 'error'
 		}
 	},
 ];
@@ -59,7 +59,7 @@ export const asyncRoutes = [
 				path: '/index',
 				component: () => import('@/views/index/index'),
 				meta: {
-					title: '主页',
+					title: 'home',
 					icon: 'dashboard',
 				}
 			}

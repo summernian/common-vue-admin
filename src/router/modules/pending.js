@@ -13,7 +13,7 @@ const componentsRouter = {
 			component: () => import('@/views/pending/index'),
 			// hidden: true,
 			meta: {
-				title: '待办',
+				title: 'pending',
 				icon: 'pending'
 			}
 		},

@@ -13,7 +13,7 @@ const componentsRouter = {
 			component: () => import('@/views/demand/index'),
 			// hidden: true,
 			meta: {
-				title: '需求',
+				title: 'demand',
 				icon: 'demand'
 			}
 		},

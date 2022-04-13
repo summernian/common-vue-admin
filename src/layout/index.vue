@@ -8,13 +8,10 @@
 </template>
 
 <script>
-	import { sideBar } from './template';
+	import sideBar from './sideBar';
 	export default {
 		name: 'layout',
 		components: { sideBar },
-		data() { return {} },
-		computed: {},
-		methods: {}
 	};
 </script>
 <style lang="scss" scoped>
@@ -34,6 +31,8 @@
 			
 			padding: 12px;
 			background: #f5f6f7;
+
+			overflow: hidden auto;
 		}
 	}
 </style>

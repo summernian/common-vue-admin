@@ -11,9 +11,9 @@ const componentsRouter = {
 			name: 'permissionIndex',
 			path: '/permission/index',
 			component: () => import('@/views/permission/index'),
-			hidden: true,
+			// hidden: true,
 			meta: {
-				title: '权限',
+				title: 'permission',
 				icon: 'permission',
 				role: ['super_admins'],
 			}

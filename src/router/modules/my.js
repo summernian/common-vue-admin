@@ -10,9 +10,9 @@ const componentsRouter = {
 			name: 'myIndex',
 			path: '/my/index',
 			component: () => import('@/views/my/index'),
-			hidden: true,
+			// hidden: true,
 			meta: {
-				title: '我的',
+				title: 'my',
 				icon: 'personal'
 			}
 		},
@@ -20,9 +20,9 @@ const componentsRouter = {
 			name: 'myPersonal',
 			path: '/my/personal',
 			component: () => import('@/views/my/personal'),
-			hidden: true,
+			// hidden: true,
 			meta: {
-				title: '个人中心',
+				title: 'personal',
 				icon: 'personal',
 				role: ['super_admin'],
 			}
