@@ -3,6 +3,39 @@
 		<a-button @click="drawer">drawer test</a-button>
 		<a-button @click="confirm">confirm test</a-button>
 		<a-button @click="modal">modal test</a-button>
+
+		<hr class="mt40 mb40" />
+
+		<a-input @keyup.native="isFloor" placeholder="限制输入数字、负数、小数点后2位" :maxLength="10" style="width: 300px" v-model="number">
+			<span slot="suffix" style="color: #bbbdc7">{{ number ? number.length : 0 }} / 10</span>
+		</a-input>
+
+		<hr class="mt40 mb40" />
+
+		<a-date-picker
+			v-model="startValue"
+			:disabled-date="disabledStartDate"
+			format="YYYY-MM-DD"
+			placeholder="开始日期"
+			style="width: 160px"
+			@change="handleStartChange"
+		/>
+		<span class="dv" style="width: 36px; text-align: center; color: #c2c2c2">
+			—
+		</span>
+		<a-date-picker
+			v-model="endValue"
+			:disabled-date="disabledEndDate"
+			format="YYYY-MM-DD"
+			placeholder="结束日期"
+			style="width: 160px"
+			@change="handleEndChange"
+		/>
+		<p class="tip mt20">1、禁止选今天之前的时间;2、选了结束时间后,开始时间禁止超过结束时间;</p>
+		<p class="tip">此处为插件自带的禁止效果,限制用户选择。一般情况下是不限制用户选择, 选择完成后在回调函数中做判断</p>
+		<p class="tip">二者取其一, 看需求</p>
+
+		<!-- 路由展示内容 -->
 		<router-view />
 	</div>
 </template>
@@ -13,7 +46,9 @@
 		name: 'index',
 		data() {
 			return {
-				
+				number: '',
+				startValue: '',
+				endValue: '',
 			};
 		},
 		mounted() {
@@ -130,7 +165,53 @@
 						);
 					},
 				});
-			}
+			},
+
+			// 限制
+            isFloor(e) {
+                let obj = event.target;
+                let t = obj.value.charAt(0);
+                obj.value = obj.value.replace(".", "$#$") //把第一个字符'.'替换成'$#$'
+                    .replace(/\./g, "") //把其余的字符'.'替换为空
+                    .replace("$#$", ".") //把字符'$#$'替换回原来的'.'
+                    .replace(/[^\d.]/g, "") //只能输入数字和'.'
+                    .replace(/^\./g, "") //不能以'.'开头
+                    .replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1") //只保留2位小数   
+                if (t == '-') {
+                    obj.value = '-' + obj.value;
+                }
+
+				// 赋值给绑定的data
+				this.number = obj.value;
+            },
+
+			// 时间可选范围
+			disabledStartDate(current) {
+				if (this.endValue) {
+					return (
+						current < this.$moment().subtract(1, "days") ||
+						current > this.$moment(this.endValue).endOf("day")
+					);
+				} else {
+					return current && current < this.$moment().subtract(1, "days");
+				}
+			},
+			disabledEndDate(current) {
+				if (this.startValue) {
+					return (
+						current < this.$moment(this.startValue).endOf("day").subtract(1, "days")
+					);
+				} else {
+					return current && current < this.$moment().subtract(1, "days");
+				}
+			},
+
+			handleStartChange(val, str) {
+				console.log(str);
+			},
+			handleEndChange(val, str) {
+				console.log(str);
+			},
 		}
 	};
 </script>
