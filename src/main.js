@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import '@/assets/css/index.less'; // css 全局
-
-import './permission'; // 路由导航守卫
+// css 全局
+import '@/assets/css/index.less'; 
 
 // antd全局引入
 // import Antd from 'ant-design-vue';
@@ -18,6 +17,9 @@ import "@/plugin/init";
 // 路由 + vuex
 import router from './router';
 import store from './store';
+
+// 路由导航守卫
+import './permission'; 
 
 Vue.config.productionTip = false;
 
