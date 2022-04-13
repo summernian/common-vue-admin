@@ -1,0 +1,97 @@
+@import '~ant-design-vue/dist/antd.less';
+
+@primary-color: #00bebe; // 全局主色
+@link-color: #00bebe; // 链接色
+@border-radius-base: 4px;
+
+@text-color: rgba(4, 10, 41, 1);
+@btn-default-color: fade(#000, 65%);
+
+@btn-height-base: 32px;
+@btn-default-bg: transparent;
+@input-height-base: 32px;
+@input-bg: transparent;
+@select-background: transparent;
+// @box-shadow-base: none;
+@btn-shadow: none;
+@btn-primary-shadow: none;
+@btn-text-shadow: none;
+@switch-sm-height: 18px;
+
+@pagination-item-bg-active: #00bebe;
+.ant-pagination-item.ant-pagination-item-active > a {
+  color: #fff !important;
+}
+
+// 大部分的按钮间隔都是10px
+.ant-btn + .ant-btn {
+  margin-left: 10px;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:hover, 
+.ant-btn-background-ghost.ant-btn-primary:focus {
+  color: #21ccc6;
+  background-color: #F5FFFE!important;
+  border-color: #21ccc6;
+}
+
+// tooltip
+.ant-tooltip-arrow::before {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+}
+.ant-tooltip-inner {
+  color: #040B29;
+  background: #fff;
+}
+
+// table
+.ant-table-hide-scrollbar::-webkit-scrollbar-track {
+    box-shadow: none;
+    background: none;
+}
+.ant-table-hide-scrollbar::-webkit-scrollbar-thumb {
+    box-shadow: none;
+    background: none;
+}
+.ant-table {
+// border: 1px solid #e8e8e8;
+    line-height: 1;
+    background: #fff;
+}
+.ant-table.ant-table-empty {
+// border: 1px solid #e8e8e8;
+    border: none;
+}
+.ant-table-tbody > tr > td {
+    border: none;
+}
+
+.ant-table-tbody > tr.hover > td {
+    border: 1px dashed #00bebe;
+    border-left: none;
+    border-right: none;
+    &:first-of-type {
+        border-left: 1px dashed #00bebe;
+    }
+    &:last-of-type {
+        border-right: 1px dashed #00bebe;
+}
+}
+
+.ant-table-placeholder {
+    border-top: none;
+    border-bottom: none;
+}
+
+
+// icon
+.anticon {
+    &.cur {
+        cursor: pointer;
+        &:hover {
+            color: #00bebe;
+        }
+    }
+}
