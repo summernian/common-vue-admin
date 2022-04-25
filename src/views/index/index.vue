@@ -216,7 +216,7 @@
 	};
 </script>
 <style lang="scss" scoped>
-	.index-container {
+	::v-deep.index-container {
 		padding: 12px;
 		background: #f5f6f7;
 	}

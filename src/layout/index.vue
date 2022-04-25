@@ -1,7 +1,7 @@
 <template>
 	<div class="main-container">
 		<sideBar class="aside-container" />
-		<div class="main-content">
+		<div class="main-content" :class="{aaa: false, bbb: true}">
 			<router-view />
 		</div>
 	</div>

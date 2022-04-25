@@ -18,7 +18,7 @@ import "@/plugin/init";
 import router from './router';
 import store from './store';
 
-// 路由导航守卫
+// 路由导航守卫+权限判断
 import './permission'; 
 
 Vue.config.productionTip = false;

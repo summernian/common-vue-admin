@@ -30,7 +30,7 @@ npm run build
 │   ├── api                  # api 请求集合
 │   ├── assets               # 本地静态资源
 │   ├── components           # 内置通用组件
-│   ├── extend               # antd二次封装组件
+│   ├── extend               # antd 插件
 │   ├── layout               # 通用布局
 │   ├── plugin               # vue 插件
 │   ├── router               # 路由配置
