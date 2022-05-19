@@ -177,7 +177,7 @@
 					},
 
 					// 时间可选范围
-					disabledStartDate(cur) {
+					disabledStartDate(current) {
 						if (this.endValue) {
 							return (
 								(current < this.$moment().subtract(1, "days")) ||
