@@ -15,7 +15,7 @@ const componentsRouter = {
 			meta: {
 				title: 'permission',
 				icon: 'permission',
-				role: ['super_admins'],
+				role: ['super_admin'],
 			}
 		},
 	]

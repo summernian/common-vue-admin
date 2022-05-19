@@ -21,17 +21,17 @@ module.exports = {
 			warnings: false,
 			errors: true
 		},
-		proxy: {
-			'/api': {
-				target: "/",   // 实际跨域请求的API地址
-				secure: false,   // https请求则使用true
-		        changeOrigin: true,  // 跨域
-		        // 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
-		        pathRewrite: {
-		          '^/api': '/',
-		        }
-			}
-		}
+		// proxy: {
+		// 	'/api': {
+		// 		target: "/",   // 实际跨域请求的API地址
+		// 		secure: false,   // https请求则使用true
+		//         changeOrigin: true,  // 跨域
+		//         // 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
+		//         pathRewrite: {
+		//           '^/api': '/',
+		//         }
+		// 	}
+		// }
 	},
 	configureWebpack: {
 		resolve: {
@@ -41,6 +41,11 @@ module.exports = {
 		}
 	},
 	chainWebpack(config) {
+		// 去除 vue-loader 警告
+		config.module.rule('vue').use('vue-loader').loader('vue-loader').tap( options => { 
+			options.prettify = false; 
+			return options;
+		});
 		//设置开发环境sourceMap
 		config.when(!isProd, config => config.devtool('cheap-source-map'));
 		//生产环境
