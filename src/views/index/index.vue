@@ -177,14 +177,14 @@
 					},
 
 					// 时间可选范围
-					disabledStartDate(current) {
+					disabledStartDate(cur) {
 						if (this.endValue) {
 							return (
-								current < this.$moment().subtract(1, "days") ||
-								current > this.$moment(this.endValue).endOf("day")
+								(current < this.$moment().subtract(1, "days")) ||
+								(current > this.$moment(this.endValue).endOf("day"))
 							);
 						} else {
-							return current && current < this.$moment().subtract(1, "days");
+							return (current && current < this.$moment().subtract(1, "days"));
 						}
 					},
 					disabledEndDate(current) {
@@ -193,7 +193,7 @@
 								current < this.$moment(this.startValue).endOf("day").subtract(1, "days")
 							);
 						} else {
-							return current && current < this.$moment().subtract(1, "days");
+							return (current && current < this.$moment().subtract(1, "days"));
 						}
 					},
 
