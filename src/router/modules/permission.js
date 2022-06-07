@@ -1,7 +1,7 @@
 import Layout from '@/layout';
 
 const componentsRouter = {
-	sort: 9999,
+	sort: 99999,
 	name: 'permission',
 	path: '/permission',
 	component: Layout,

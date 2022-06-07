@@ -11,7 +11,7 @@ const componentsRouter = {
 			name: 'demandIndex',
 			path: '/demand/index',
 			component: () => import('@/views/demand/index'),
-			// hidden: true,
+			hidden: true,
 			meta: {
 				title: 'demand',
 				icon: 'demand'

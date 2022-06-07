@@ -52,7 +52,7 @@
 						return h(test1, {
 							props: {
 								a: 1,
-								b: 20
+								b: 200
 							},
 							on: {
 								cb(res) {
@@ -72,54 +72,64 @@
 				let okText = 'ok-btn';
 				let cancelText = 'cancel-btn';
 				this.$confirm({
-							// title、content可直接用字符串
-							title: (h) => {
-								return [
-									h("span", null, "错误数据 "),
-									h("span", {
-										class: "danger-color"
-									}, 2),
-									h("span", null, " 条，请下载错误数据修改后上传"),
-								];
+						// title、content可直接用字符串
+						title: (h) => {
+							return [
+								h("span", null, "错误数据 "),
+								h("span", {
+									class: "danger-color",
+									style: {
+										color: 'red'
+									}
+								}, 2),
+								h("span", null, " 条，请下载错误数据修改后上传"),
+							];
+						},
+						content: () => (
+								<div style = "font-size: 28px;" > 
+									test： 
+									<span style = "color: #00BEBE;" >info1，</span>
+									info2
+									<span style="color: #00BEBE;"> info3，</span >
+									info4 
+								</div> 
+							),
+							okText,
+							onOk: async () => {
+								console.log(`你点了${okText}`);
 							},
-							content: () => ( < div style = "font-size: 28px;" > test： < span style = "color: #00BEBE;" >
-								info1， < /span>info2<span style="color: #00BEBE;"> info3，</span > info4 < /div>),
-								okText,
-								onOk: async () => {
-										console.log(`你点了${okText}`);
+							cancelText,
+							cancelButtonProps: {
+								props: {
+									type: 'primary', // 修改按钮模式 dafault danger primary dashed link
+								},
+								attrs: {
+									// hidden: true, // 不显示
+									// disabled: true, // 禁用
+									// ghost: true
+								},
+								style: {
+									// background: 'pink'
+								},
+							},
+							okType: "dashed",
+							// closable: true,
+							onCancel: () => {
+								console.log(`你点了${cancelText}`);
+							},
+							icon: h => {
+								return h("a-icon", {
+									props: {
+										type: "exclamation-circle",
+										theme: "filled" // 主题
 									},
-									cancelText,
-									cancelButtonProps: {
-										props: {
-											type: 'danger', // 修改按钮模式 dafault danger primary dashed link
-										},
-										attrs: {
-											// hidden: true, // 不显示
-											// disabled: true, // 禁用
-											ghost: true
-										},
-										style: {
-											// background: 'pink'
-										},
-									},
-									okType: "dashed",
-									// closable: true,
-									onCancel: () => {
-										console.log(`你点了${cancelText}`);
-									},
-									icon: h => {
-										return h("a-icon", {
-											props: {
-												type: "exclamation-circle",
-												theme: "filled" // 主题
-											},
-											style: {
-												color: '#f00' //修改图标样式
-											}
-										})
-									}, // 种类1
-									// icon: 'exclamation-circle', // 种类2
-							})
+									style: {
+										// color: '#f00' //修改图标样式
+									}
+								})
+							}, // 种类1
+							// icon: 'exclamation-circle', // 种类2
+						})
 					},
 					modal() {
 						let _this = this;
@@ -129,7 +139,7 @@
 							okText: "ok-btn",
 							cancelText: "cancel-btn",
 							cancelType: "danger",
-							okType: 'danger',
+							okType: 'primary',
 
 
 							closable: false,
@@ -139,8 +149,8 @@
 							},
 
 							content: (h) => {
-								return h(
-									test2, {
+								return h(test2, 
+									{
 										props: {
 											a: 4,
 											b: 5
@@ -148,7 +158,7 @@
 										on: {
 											suiBianJiaoSha(res) {
 												_this.$message.info(`值是：${res}`);
-												instance.close();
+												// instance.close();
 											}
 										}
 									},
