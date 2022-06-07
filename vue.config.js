@@ -41,6 +41,11 @@ module.exports = {
 		}
 	},
 	chainWebpack(config) {
+		// 设置项目名
+		config.plugin('html').tap(args => {
+			args[0].title = '项目名';
+			return args
+		});
 		// 去除 vue-loader 警告
 		config.module.rule('vue').use('vue-loader').loader('vue-loader').tap( options => { 
 			options.prettify = false; 
@@ -70,7 +75,6 @@ module.exports = {
 				}
 			});
 			config.optimization.runtimeChunk('single');
-
 			//去除生产环境debugger 和console
 			config.optimization.minimizer('terser').tap(args => {
 				args[0].terserOptions.compress.warnings = false;
