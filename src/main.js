@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 // css 全局
-import '@/assets/css/index.less'; 
+import './assets/css/index.less'; 
 
 // antd全局引入
 // import Antd from 'ant-design-vue';
@@ -10,9 +10,9 @@ import '@/assets/css/index.less';
 // Vue.use(Antd);
 
 // antd按需加载
-import "@/plugin/antd";
+import "./assets/js/antd";
 // extend、component; use、prototype;
-import "@/plugin/init";
+import "./plugin";
 
 // 路由 + vuex
 import router from './router';

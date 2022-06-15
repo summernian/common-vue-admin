@@ -1,7 +1,7 @@
 @import '~ant-design-vue/dist/antd.less';
 
 @primary-color: #00bebe; // 全局主色
-@link-color: #ff6a00; // 链接色
+@link-color: #f00; // 链接色
 @border-radius-base: 4px;
 
 @text-color: rgba(4, 10, 41, 1);
@@ -18,14 +18,14 @@
 @btn-text-shadow: none;
 @switch-sm-height: 18px;
 
-@pagination-item-bg-active: #00bebe;
+@pagination-item-bg-active: @primary-color;
 .ant-pagination-item.ant-pagination-item-active > a {
   color: #fff !important;
 }
 
-// 大部分的按钮间隔都是10px
+// 大部分的按钮间隔都是12px
 .ant-btn + .ant-btn {
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .ant-btn-background-ghost.ant-btn-primary:hover, 
@@ -69,14 +69,14 @@
 }
 
 .ant-table-tbody > tr.hover > td {
-    border: 1px dashed #00bebe;
+    border: 1px dashed @primary-color;
     border-left: none;
     border-right: none;
     &:first-of-type {
-        border-left: 1px dashed #00bebe;
+        border-left: 1px dashed @primary-color;
     }
     &:last-of-type {
-        border-right: 1px dashed #00bebe;
+        border-right: 1px dashed @primary-color;
 }
 }
 
@@ -91,7 +91,7 @@
     &.cur {
         cursor: pointer;
         &:hover {
-            color: #00bebe;
+            color: @primary-color;
         }
     }
 }

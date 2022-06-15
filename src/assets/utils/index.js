@@ -53,4 +53,4 @@ export function getPageTitle(pageTitle) {
 	  return `${pageTitle} - ${title}`;
 	}
 	return title;
-  }
+}
