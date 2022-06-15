@@ -21,25 +21,56 @@ export function paramObj(url) {
 
 /**
  * 函数防抖
- * @param {Function} func
+ * @param {Function} fn
  * @param {number} delay
  * @param {boolean} immediate
  * @return {*}
  */
-export function debounce(func, delay, immediate = false) {
+export function debounce(fn, delay = 600, immediate = false) {
 	let timer,
 		context = this;
 	return (...args) => {
 		if (immediate) {
-			func.apply(context, args);
+			fn.apply(context, args);
 			immediate = false;
 			return;
 		}
-		clearTimeout(timer);
+		timer && clearTimeout(timer);
 		timer = setTimeout(() => {
-			func.apply(context, args);
+			fn.apply(context, args);
 		}, delay);
 	};
+}
+
+/**
+ * 函数节流
+ * @param {Function} fn
+ * @param {number} wait 延迟执行毫秒数
+ * @param {boolean} immediate
+ */
+export function throttle(fn, wait = 200, immediate = false) {
+	let timer,
+		previous = 0,
+		context = this;
+	return (...args) => {
+		if (immediate) {
+			let now = Date.now();
+			if (now - previous > wait) {
+				fn.apply(context, args);
+				previous = now;
+			}
+		} else {
+			// 定时器不存在时，才会执行
+			if (!timer) {
+				timer = setTimeout(() => {
+					fn.apply(context, args)
+					timer = null;
+					// 不能使用这个清除，因为清除定时器，但是timer值还是不变，不是null
+					// clearTimeout(timer)  
+				}, wait);
+			}
+		}
+	}
 }
 
 /**
@@ -50,7 +81,7 @@ export function debounce(func, delay, immediate = false) {
 export function getPageTitle(pageTitle) {
 	const title = process.env.VUE_APP_BASE_NAME || 'Vue Antdv Admin App';
 	if (pageTitle) {
-	  return `${pageTitle} - ${title}`;
+		return `${pageTitle} - ${title}`;
 	}
 	return title;
 }

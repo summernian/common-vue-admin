@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // time是毫秒
 const setCookie = (name, value, time) => {
 	let exp = new Date();
@@ -19,19 +18,6 @@ const delCookie = (name) => {
 	if (cval != null)
 		document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 };
-
-const setStorage = (item, value) => {
-	sessionStorage.setItem(item, value);
-};
-const removeStorage = (item) => {
-	sessionStorage.removeItem(item);
-};
-const getStorage = (item) => {
-	return sessionStorage.getItem(item);
-};
-const hasStorage = (item) => {
-	return item && item !== "null" && item !== undefined && item !== "undefined";
-};
 const deepClone = (obj) => {
 	var objClone = Array.isArray(obj) ? [] : {};
 	// 进行深拷贝的不能为空，并且是对象或者是
@@ -47,47 +33,6 @@ const deepClone = (obj) => {
 		}
 	}
 	return objClone;
-};
-const debounce = (fn, delay) => {
-	delay = delay || 600;
-	let timer;
-	return function() {
-		let ctx = this;
-		let args = arguments;
-		if (timer) {
-			clearTimeout(timer);
-		}
-		timer = setTimeout(() => {
-			timer = null;
-			fn.apply(ctx, args);
-		}, delay);
-	};
-};
-const throttle = (fn, delay) => {
-	let pre = Date.now();
-	return function() {
-		let ctx = this;
-		let args = arguments;
-		let now = Date.now();
-		if (now - pre >= delay) {
-			fn.apply(ctx, args);
-			pre = Date.now();
-		}
-	};
-};
-const throttle2 = (fn, delay) => {
-	let valid = true;
-
-	return () => {
-		if (!valid) {
-			return;
-		}
-		valid = false;
-		setTimeout(() => {
-			fn();
-			valid = true;
-		}, delay);
-	};
 };
 const trim = (string) => {
 	return (string || "").replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, "");
@@ -140,20 +85,7 @@ const removeClass = (el, cls) => {
 		el.setAttribute("class", trim(curClass));
 	}
 };
-const merge = (target) => {
-	for (let i = 1, j = arguments.length; i < j; i++) {
-		let source = arguments[i] || {};
-		for (let prop in source) {
-			// eslint-disable-next-line no-prototype-builtins
-			if (source.hasOwnProperty(prop)) {
-				let value = source[prop];
-				if (value !== undefined) target[prop] = value;
-			}
-		}
-	}
-	return target;
-};
-const getNowFormatDate = (time, seperator) => {
+const formatDate = (time, seperator) => {
 	const date = time ? new Date(time) : new Date();
 	const s = seperator ? seperator : "-";
 	const year = date.getFullYear();
@@ -167,7 +99,7 @@ const getNowFormatDate = (time, seperator) => {
 	}
 	return year + s + month + s + strDate;
 };
-const getNowFormatTime = (time, seperator) => {
+const formatTime = (time, seperator) => {
 	const date = time ? new Date(time) : new Date();
 	const s = seperator ? seperator : "-";
 	let hour = date.getHours();
@@ -193,17 +125,18 @@ const getFileSize = (fileByte) => {
 	else fileSizeMsg = "文件超过1TB";
 	return fileSizeMsg;
 };
-
-// 渲染confirm弹框的感叹号图标
-const renderConfirmIcon = (h) => {
-	return h("a-icon", {
-		props: {
-			type: "exclamation-circle",
-			theme: "filled"
-		},
-	});
+const merge = (target) => {
+	for (let i = 1, j = arguments.length; i < j; i++) {
+		let source = arguments[i] || {};
+		for (let prop in source) {
+			if (source.hasOwnProperty(prop)) {
+				let value = source[prop];
+				if (value !== undefined) target[prop] = value;
+			}
+		}
+	}
+	return target;
 };
-
 const deepMerge = (target, source) => { // 深度合并对象
 	for (let key in source) {
 		target[key] = target[key] && target[key].toString() === "[object Object]" ?
@@ -211,8 +144,6 @@ const deepMerge = (target, source) => { // 深度合并对象
 	}
 	return target;
 }
-
-// 复制文本
 const copyToClip = (content, fn) => {
 	const aux = document.createElement("input");
 	aux.setAttribute("value", content);
@@ -222,8 +153,7 @@ const copyToClip = (content, fn) => {
 	document.body.removeChild(aux);
 	fn && fn();
 };
-
-export const downloadAttachment = (res, fileName) => {
+const downloadAttachment = (res, fileName) => {
 	const content = res;
 	const blob = new Blob([content]);
 	let userAgent = navigator.userAgent;
@@ -249,22 +179,15 @@ export {
 	setCookie,
 	getCookie,
 	delCookie,
-	setStorage,
-	removeStorage,
-	getStorage,
-	hasStorage,
 	deepClone,
-	debounce,
-	throttle,
-	throttle2,
 	hasClass,
 	addClass,
 	removeClass,
-	merge,
-	getNowFormatDate,
-	getNowFormatTime,
+	formatDate,
+	formatTime,
 	getFileSize,
-	renderConfirmIcon,
+	merge,
 	deepMerge,
 	copyToClip,
+	downloadAttachment
 };
