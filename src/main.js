@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 // css 全局
-import './assets/css/index.less'; 
+import './assets/css/index.less';
 
 // antd全局引入
 // import Antd from 'ant-design-vue';
@@ -19,7 +19,7 @@ import router from './router';
 import store from './store';
 
 // 路由导航守卫+权限判断
-import './permission'; 
+import './permission';
 
 Vue.config.productionTip = false;
 

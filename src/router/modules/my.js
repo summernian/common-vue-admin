@@ -20,7 +20,7 @@ const componentsRouter = {
 			name: 'myPersonal',
 			path: '/my/personal',
 			component: () => import('@/views/my/personal'),
-			// hidden: true,
+			hidden: true,
 			meta: {
 				title: 'personal',
 				icon: 'personal',

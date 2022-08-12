@@ -1,5 +1,8 @@
 <template>
-	<div class="index-container">
+	<div class="index-container" v-waterMarker="{text: '呵呵'}">
+		
+		<img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" >
+		
 		<a-button @click="drawer">drawer test</a-button>
 		<a-button @click="confirm">confirm test</a-button>
 		<a-button @click="modal">modal test</a-button>
@@ -23,7 +26,11 @@
 		<p class="tip mt20">1、禁止选今天之前的时间;2、选了结束时间后,开始时间禁止超过结束时间;</p>
 		<p class="tip">此处为插件自带的禁止效果,限制用户选择。一般情况下是不限制用户选择, 选择完成后在回调函数中做判断</p>
 		<p class="tip">二者取其一, 看需求</p>
-
+		
+		<div style="height: 100vh;background: #eee;"></div>
+		
+		<img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" >
+		
 		<!-- 路由展示内容 -->
 		<router-view />
 	</div>
@@ -72,149 +79,149 @@
 				let okText = 'ok-btn';
 				let cancelText = 'cancel-btn';
 				this.$confirm({
-						// title、content可直接用字符串
-						title: (h) => {
-							return [
-								h("span", null, "错误数据 "),
-								h("span", {
-									class: "danger-color",
-									style: {
-										color: 'red'
-									}
-								}, 2),
-								h("span", null, " 条，请下载错误数据修改后上传"),
-							];
-						},
-						content: () => (
-								<div style = "font-size: 28px;" > 
-									test： 
-									<span style = "color: #00BEBE;" >info1，</span>
-									info2
-									<span style="color: #00BEBE;"> info3，</span >
-									info4 
-								</div> 
-							),
-							okText,
-							onOk: async () => {
-								console.log(`你点了${okText}`);
-							},
-							cancelText,
-							cancelButtonProps: {
-								props: {
-									type: 'primary', // 修改按钮模式 dafault danger primary dashed link
-								},
-								attrs: {
-									// hidden: true, // 不显示
-									// disabled: true, // 禁用
-									// ghost: true
-								},
+					// title、content可直接用字符串
+					title: (h) => {
+						return [
+							h("span", null, "错误数据 "),
+							h("span", {
+								class: "danger-color",
 								style: {
-									// background: 'pink'
-								},
+									color: 'green',
+									// fontSize: '200px'
+								}
+							}, 2),
+							h("span", null, " 条，请下载错误数据修改后上传"),
+						];
+					},
+					content: () => (
+						<div style = "font-size: 28px;" >
+						test： 
+						<span style = "color: #00BEBE;" > info1， </span>
+						info2 
+						<span style = "color: #00BEBE;" > info3， </span >
+						info4 
+						</div> 
+					),
+					okText,
+					onOk: async () => {
+						console.log(`你点了${okText}`);
+					},
+					cancelText,
+					cancelButtonProps: {
+						props: {
+							type: 'primary', // 修改按钮模式 dafault danger primary dashed link
+						},
+						attrs: {
+							// hidden: true, // 不显示
+							// disabled: true, // 禁用
+							// ghost: true
+						},
+						style: {
+							// background: 'pink'
+						},
+					},
+					okType: "dashed",
+					// closable: true,
+					onCancel: () => {
+						console.log(`你点了${cancelText}`);
+					},
+					icon: h => {
+						return h("a-icon", {
+							props: {
+								type: "exclamation-circle",
+								theme: "filled" // 主题
 							},
-							okType: "dashed",
-							// closable: true,
-							onCancel: () => {
-								console.log(`你点了${cancelText}`);
-							},
-							icon: h => {
-								return h("a-icon", {
-									props: {
-										type: "exclamation-circle",
-										theme: "filled" // 主题
-									},
-									style: {
-										// color: '#f00' //修改图标样式
-									}
-								})
-							}, // 种类1
-							// icon: 'exclamation-circle', // 种类2
+							style: {
+								// color: '#f00' //修改图标样式
+							}
 						})
+					}, // 种类1
+					// icon: 'exclamation-circle', // 种类2
+				})
+			},
+			modal() {
+				let _this = this;
+				const instance = this.$modal({
+					title: "modal title",
+					wrapClassName: "xxxx",
+					okText: "ok-btn",
+					cancelText: "cancel-btnsss",
+					cancelType: "danger",
+					okType: 'primary',
+
+
+					// closable: false,
+					// footer: null,
+					onOk: () => {
+						instance.close();
 					},
-					modal() {
-						let _this = this;
-						const instance = this.$modal({
-							title: "modal title",
-							wrapClassName: "xxxx",
-							okText: "ok-btn",
-							cancelText: "cancel-btn",
-							cancelType: "danger",
-							okType: 'primary',
 
-
-							closable: false,
-							// footer: null,
-							onOk: () => {
-								instance.close();
+					content: (h) => {
+						return h(test2, {
+								props: {
+									a: 4,
+									b: 5
+								},
+								on: {
+									suiBianJiaoSha(res) {
+										_this.$message.info(`值是：${res}`);
+										// instance.close();
+									}
+								}
 							},
+							null
+						);
+					},
+				});
+			},
 
-							content: (h) => {
-								return h(test2, 
-									{
-										props: {
-											a: 4,
-											b: 5
-										},
-										on: {
-											suiBianJiaoSha(res) {
-												_this.$message.info(`值是：${res}`);
-												// instance.close();
-											}
-										}
-									},
-									null
-								);
-							},
-						});
-					},
+			// 限制
+			isFloor(e) {
+				let obj = event.target;
+				let t = obj.value.charAt(0);
+				obj.value = obj.value.replace(".", "$#$") //把第一个字符'.'替换成'$#$'
+					.replace(/\./g, "") //把其余的字符'.'替换为空
+					.replace("$#$", ".") //把字符'$#$'替换回原来的'.'
+					.replace(/[^\d.]/g, "") //只能输入数字和'.'
+					.replace(/^\./g, "") //不能以'.'开头
+					.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1") //只保留2位小数   
+				if (t == '-') {
+					obj.value = '-' + obj.value;
+				}
 
-					// 限制
-					isFloor(e) {
-						let obj = event.target;
-						let t = obj.value.charAt(0);
-						obj.value = obj.value.replace(".", "$#$") //把第一个字符'.'替换成'$#$'
-							.replace(/\./g, "") //把其余的字符'.'替换为空
-							.replace("$#$", ".") //把字符'$#$'替换回原来的'.'
-							.replace(/[^\d.]/g, "") //只能输入数字和'.'
-							.replace(/^\./g, "") //不能以'.'开头
-							.replace(/([0-9]+\.[0-9]{2})[0-9]*/, "$1") //只保留2位小数   
-						if (t == '-') {
-							obj.value = '-' + obj.value;
-						}
+				// 赋值给绑定的data
+				this.number = obj.value;
+			},
 
-						// 赋值给绑定的data
-						this.number = obj.value;
-					},
+			// 时间可选范围
+			disabledStartDate(current) {
+				if (this.endValue) {
+					return (
+						(current < this.$moment().subtract(1, "days")) ||
+						(current > this.$moment(this.endValue).endOf("day"))
+					);
+				} else {
+					return (current && current < this.$moment().subtract(1, "days"));
+				}
+			},
+			disabledEndDate(current) {
+				if (this.startValue) {
+					return (
+						current < this.$moment(this.startValue).endOf("day").subtract(1, "days")
+					);
+				} else {
+					return (current && current < this.$moment().subtract(1, "days"));
+				}
+			},
 
-					// 时间可选范围
-					disabledStartDate(current) {
-						if (this.endValue) {
-							return (
-								(current < this.$moment().subtract(1, "days")) ||
-								(current > this.$moment(this.endValue).endOf("day"))
-							);
-						} else {
-							return (current && current < this.$moment().subtract(1, "days"));
-						}
-					},
-					disabledEndDate(current) {
-						if (this.startValue) {
-							return (
-								current < this.$moment(this.startValue).endOf("day").subtract(1, "days")
-							);
-						} else {
-							return (current && current < this.$moment().subtract(1, "days"));
-						}
-					},
-
-					handleStartChange(val, str) {
-						console.log(str);
-					},
-					handleEndChange(val, str) {
-						console.log(str);
-					},
-			}
-		};
+			handleStartChange(val, str) {
+				console.log(str);
+			},
+			handleEndChange(val, str) {
+				console.log(str);
+			},
+		}
+	};
 </script>
 <style lang="scss" scoped>
 	::v-deep.index-container {

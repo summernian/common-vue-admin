@@ -32,7 +32,8 @@
 			padding: 12px;
 			background: #f5f6f7;
 
-			overflow: hidden auto;
+			overflow: auto;
+			overflow: hidden auto; // ie不支持这种写法
 		}
 	}
 </style>

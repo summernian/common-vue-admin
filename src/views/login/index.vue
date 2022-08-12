@@ -1,5 +1,5 @@
 <template>
-	<div class="login-container bgImg content">
+	<div class="login-container">
 		<a-button type="primary" @click="login(1)">
 			登录superAdmin
 		</a-button>

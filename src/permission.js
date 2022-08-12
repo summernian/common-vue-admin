@@ -36,6 +36,7 @@ router.beforeEach(async (to, from, next) => {
 				try {
 					const { role } = await store.dispatch('user/getInfo');
 					const accountRoutes = await store.dispatch('permission/getRoute', role);
+					console.log(accountRoutes, '[]');
 					// router.addRoutes(accountRoutes); // 该方法在新版已被弃用，可使用，但浏览器会给出警告，故改用addRoute，一个是添加单个，一个是添加数组
 					accountRoutes.forEach(item => router.addRoute(item) );
 					next({
