@@ -21,6 +21,11 @@ import store from './store';
 // 路由导航守卫+权限判断
 import './permission';
 
+// 需要mock再引入
+if(window.configure[process.env.NODE_ENV].mock) {
+	// require('./mock');
+}
+
 Vue.config.productionTip = false;
 
 new Vue({

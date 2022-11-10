@@ -1,5 +1,5 @@
-import { getCache, setCache, removeCache } from '@/assets/utils/session';
-import { login, logout, getCodeTest, getInfo } from '@/api/user';
+import { getCache, setCache, removeCache } from '@/utils/session';
+import { login, getInfo, loginOut } from '@/api/modules/user';
 import { resetRouter } from '@/router';
 
 const state = {
@@ -32,23 +32,9 @@ const actions = {
 			});
 		});
 	},
-	codeTest({ commit }, userInfo) {
-		return new Promise((resolve, reject) => {
-			getCodeTest(userInfo).then(res => {
-				let { data } = res;
-				if (data) {
-					commit('SET_TOKEN', data.token);
-					setCache('TOKEN', data.token);
-				}
-				resolve();
-			}).catch(err => {
-				reject(err);
-			});
-		});
-	},
 	logout({ commit, state }) {
 		return new Promise((resolve, reject) => {
-			logout().then(() => {
+			loginOut().then(() => {
 				commit('SET_TOKEN', '');
 				commit('SET_USERINFO', '');
 				removeCache('TOKEN');

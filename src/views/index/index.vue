@@ -1,7 +1,7 @@
 <template>
 	<div class="index-container" v-waterMarker="{text: '呵呵'}">
 		
-		<img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" >
+		<!-- <img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" > -->
 		
 		<a-button @click="drawer">drawer test</a-button>
 		<a-button @click="confirm">confirm test</a-button>
@@ -27,9 +27,11 @@
 		<p class="tip">此处为插件自带的禁止效果,限制用户选择。一般情况下是不限制用户选择, 选择完成后在回调函数中做判断</p>
 		<p class="tip">二者取其一, 看需求</p>
 		
-		<div style="height: 100vh;background: #eee;"></div>
+		<!-- <div style="height: 100vh;background: #eee;"></div> -->
 		
-		<img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" >
+		<!-- <img v-lazy="'https://t7.baidu.com/it/u=444102976,1259665226&fm=193&f=GIF'" > -->
+		
+		<testDiv :isOpen.sync="switchType" />
 		
 		<!-- 路由展示内容 -->
 		<router-view />
@@ -38,17 +40,22 @@
 <script>
 	import test1 from "./self"
 	import test2 from "./self2"
+	// 按需引入
+	// import testDiv from "./self3"
 	export default {
 		name: 'homePage',
+		components: { testDiv: () => import('./self3') },
 		data() {
 			return {
 				number: '',
 				startValue: '',
 				endValue: '',
+				
+				switchType: true,
 			};
 		},
 		mounted() {
-
+			console.log(window.configure)
 		},
 		methods: {
 			drawer() {
@@ -165,7 +172,7 @@
 								on: {
 									suiBianJiaoSha(res) {
 										_this.$message.info(`值是：${res}`);
-										// instance.close();
+										instance.close();
 									}
 								}
 							},
@@ -174,7 +181,11 @@
 					},
 				});
 			},
-
+			
+			changeSwitch() {
+				this.switchType = !this.switchType;
+			},
+			
 			// 限制
 			isFloor(e) {
 				let obj = event.target;

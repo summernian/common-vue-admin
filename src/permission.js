@@ -1,6 +1,6 @@
 import { message } from 'ant-design-vue';
-import { getPageTitle } from './assets/utils';
-import { getCache } from './assets/utils/session';
+import { getPageTitle } from './utils';
+import { getCache } from './utils/session';
 import router from './router';
 import store from './store';
 import NProgress from 'nprogress'; // progress bar

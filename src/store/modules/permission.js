@@ -1,4 +1,4 @@
-import { setCache } from '@/assets/utils/session';
+import { setCache } from '@/utils/session';
 import { baseRoutes, asyncRoutes } from '@/router';
 import router, { resetRouter } from '@/router';
 
@@ -31,7 +31,7 @@ export function filterAsyncRoute(routes, role) {
 	let arr = [];
 	routes.forEach(item => {
 		const temp = { ...item };
-		if (hasChildren(temp, role)) {
+		if(hasChildren(temp, role)) {
 			if (temp.children) {
 				temp.children = filterAsyncRoute(temp.children, role);
 			}
