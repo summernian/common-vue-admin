@@ -8,10 +8,10 @@ import qs from 'qs'; // 根据需求是否导入qs模块
 
 // 本模块是展示说明文件，接口基本调不通，仅供参考
 // 你也可以把不确定的接口放在这里先试试，之后再分类
-// post请求 传data，可以选择是否序列化参数，这样后台拿到的就是obj或者JSON
+// post请求 传data，可以选择是否序列化参数，这样后台拿到的就是序列化obj或者JSON
 // get请求 传params， 直接序列化后拼在接口后面 例如：/api/getData?a=1&b=2
 // request[method](url, {...obj})方式，method为post时，第二个参数默认是data，为get时，第二个参数是配置项，所以参数要用{}包起来
-// 如果接口不走通用接口地址，可替换
+// 另：如果接口不走通用的接口地址，可替换
 
 // 获取当前全局配置
 const configure = window.configure[process.env.NODE_ENV];
@@ -45,15 +45,15 @@ export function test3(params) {
 export function test4(params) {
 	return request({
 		method: 'post', // or get
-		baseURL: configure.otherApi, // 不走通用地址，替换为全局配置的别的api地址
+		baseURL: configure.VUE_APP_OTHER_API, // 不走通用地址，替换为全局配置的别的api地址
 		url: '/method/test4',
 		// 可更改请求头信息
 		headers: {
-			// 具体配置什么看后台需要
+			// 具体配置什么看后台需要，非必填
 			// 比如告诉后台给他的是个formData
 			"Content-Type": "multipart/form-data", 
 		}, 
-		data: params,
-		params,
+		data: params, // post请求传这个
+		params, // get请求传这个
 	});
 }

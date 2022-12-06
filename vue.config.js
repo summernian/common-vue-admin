@@ -24,7 +24,7 @@ module.exports = {
 	// 如果报错了，可以精准定位到哪一行，否则看压缩后的代码，你都不知道哪报错了
 	// 如果您不需要生产时的源映射，那么将此设置为false可以加速生产构建，并将代码加密(压缩文件看不懂)
 	// productionSourceMap: type: {Bollean}, default: true
-	productionSourceMap: false, 
+	// productionSourceMap: false, 
 	
 	// 默认情况下 babel-loader 会忽略所有 node_modules 中的文件
 	// 启用本选项，对所有的依赖都进行转译，但可能会降低构建速度
@@ -38,7 +38,7 @@ module.exports = {
                 lessOptions: {
 					javascriptEnabled: true,
 				},
-            }
+            },
         },
     },
 	
@@ -51,6 +51,8 @@ module.exports = {
 	},
 	
 	chainWebpack(config) {
+		// 修复热更新失效
+		config.resolve.symlinks(true);
 		config.plugin('html').tap(opts => {
 			// 设置项目名
 			opts[0].title = '项目名';
@@ -64,7 +66,7 @@ module.exports = {
 			return options;
 		});
 		//设置开发环境sourceMap
-		// config.when(!isProd, config => config.devtool('cheap-source-map'));
+		config.when(!isProd, config => config.devtool('cheap-source-map'));
 		//生产环境
 		config.when(isProd, config => {
 			// 将每个依赖包打包成单独的js文件
@@ -126,3 +128,6 @@ module.exports = {
 		// }
 	}
 };
+if (process.env.NODE_ENV) {
+    console.log('当前环境变量: ', process.env.NODE_ENV);
+}

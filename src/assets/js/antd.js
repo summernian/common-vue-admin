@@ -49,7 +49,7 @@ const IconFont = Icon.createFromIconfontCN({
 	// 在 iconfont.cn 上生成
 	scriptUrl: "//at.alicdn.com/t/font_3250238_zsoy6sfjmv9.js",
 });
-Vue.component("IconFont", IconFont);
+Vue.component("CIcon", IconFont);
 
 Vue.use(Icon);
 Vue.use(Button);

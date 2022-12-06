@@ -1,6 +1,6 @@
 import { getCache, setCache, removeCache } from '@/utils/session';
-import { login, getInfo, loginOut } from '@/api/modules/user';
-import { resetRouter } from '@/router';
+import { login, logout, getInfo } from '@/api/modules/user';
+import router, { resetRouter } from '@/router';
 
 const state = {
 	userInfo: null,
@@ -17,7 +17,7 @@ const mutations = {
 };
 
 const actions = {
-	login({ commit }, userInfo) {
+	login({ commit, dispatch }, userInfo) {
 		// 本地修改
 		return new Promise((resolve, reject) => {
 			login(userInfo).then(res => {
@@ -25,21 +25,16 @@ const actions = {
 				if (data) {
 					commit('SET_TOKEN', data.token);
 					setCache('TOKEN', data.token);
+					commit('SET_USERINFO', data);
+					setCache('USERINFO', data);
+					
+					// 写入路由信息
+					dispatch('permission/getRoute', data.role, { root: true}).then(accountRoutes => {
+						console.log('获取路由：',accountRoutes);
+						accountRoutes.forEach(item => router.addRoute(item) );
+						resolve(res);
+					});
 				}
-				resolve();
-			}).catch(err => {
-				reject(err);
-			});
-		});
-	},
-	logout({ commit, state }) {
-		return new Promise((resolve, reject) => {
-			loginOut().then(() => {
-				commit('SET_TOKEN', '');
-				commit('SET_USERINFO', '');
-				removeCache('TOKEN');
-				resetRouter();
-				resolve();
 			}).catch(err => {
 				reject(err);
 			});
@@ -47,33 +42,32 @@ const actions = {
 	},
 	getInfo({ commit, state }) {
 		return new Promise((resolve, reject) => {
-			// getInfo({ token: state.token }).then(res => {
-			// 	let { data } = res;
-			// 	if (data) {
-			// 		commit('SET_USERINFO', data);
-			// 		setCache('USERINFO', data);
-			// 	}
-			// 	resolve(data);
-			// }).catch(err => {
-			// 	reject(err);
-			// });
-			let userInfo = {
-				role: state.token,
-				username: '王彬',
-				password: '123456'
-			};
-			commit('SET_USERINFO', userInfo);
-			setCache('USERINFO', userInfo);
-			resolve(userInfo);
+			getInfo({ token: state.token }).then(res => {
+				let { data } = res;
+				if (data) {
+					commit('SET_USERINFO', data);
+					setCache('USERINFO', data);
+				}
+				resolve(data);
+			}).catch(err => {
+				reject(err);
+			});
 		});
 	},
-	updateInfo({ commit }, userInfo) {
+	logout({ commit, state }) {
 		return new Promise((resolve, reject) => {
-			commit('SET_USERINFO', userInfo);
-			setCache('USERINFO', userInfo);
-			resolve();
+			logout().then(() => {
+				commit('SET_TOKEN', '');
+				commit('SET_USERINFO', '');
+				removeCache('TOKEN');
+				removeCache('USERINFO');
+				resetRouter();
+				resolve();
+			}).catch(err => {
+				reject(err);
+			});
 		});
-	}
+	},
 };
 
 export default {

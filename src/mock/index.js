@@ -5,23 +5,78 @@ const Mock = require('mockjs');
 // 模拟登陆接口
 Mock.mock(RegExp('/mock/user/login'), res => {
 	console.log(res);
-	let item = qs.parse(res.body);
-	console.log(item)
-	let username = item.username;
-	let password = item.password;
-	if (username === 'admin' && password === '123456') {
+	let data = qs.parse(res.body);
+	let {username, password} = data;
+	if(!['admin','super_admin','editor'].includes(username)) {
 		return {
-			'code': '000',
-			'msg': '登陆成功',
-			'data': {
-				'orgCode': '35002',
-				'token': 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInVzZXJOYW1lIjoiYWRtaW4iLCJvcmdDb2RlIjoiMzUwMDAiLCJkZXB0Q29kZSI6IjM1MDAwIiwiYXVkIjoiYWRtaW4iLCJpc3MiOiJhZG1pbiIsImV4cCI6MTU5MzUzNTU5OH0.0pJAojRtT5lx6PS2gH_Q9BmBxeNlgBL37ABX22HyDlebbr66cCjVYZ0v0zbLO_9241FX9-FZpCkEqE98MQOyWw',
-			}
+			code: 401,
+			msg: '用户不存在'
+		}
+	} else if(!['admin','123456'].includes(password)) {
+		return {
+			code: 401,
+			msg: '账号密码错误'
 		}
 	} else {
+		let role = {};
+		switch(username) {
+			case 'admin':
+				role.tag = 'admin';
+				role.name = '管理员';
+				break;
+			case 'super_admin':
+				role.tag = 'super_admin';
+				role.name = '超级管理员';
+				break;
+			default:
+				role.tag = 'editor'
+				role.name = '用户';
+				break;
+		}
 		return {
-			'code': '999',
-			'msg': '登陆失败'
+			code: 200,
+			msg: `登陆成功！欢迎回来，${role.name}。`,
+			data: {
+				role: role.tag,
+				name: role.name,
+				token: `eyJhbGciO-iJIUzUxMiJ9.thisIsAToken_${role.tag}`,
+			}
+		}
+	}
+});
+
+// 模拟接口
+Mock.mock(RegExp('/mock/user/userInfo'), res => {
+	console.log(res);
+	let { token } = qs.parse(res.body);
+	console.log(token, '- token')
+	if(!token) {
+		return {
+			code: 401,
+			msg: '请传入token！'
+		}
+	} else {
+		let role = {};
+		role.tag = token.split('_')[1];
+		switch(role.tag) {
+			case 'admin':
+				role.name = '管理员';
+				break;
+			case 'super_admin':
+				role.name = '超级管理员';
+				break;
+			default:
+				role.name = '用户';
+				break;
+		}
+		return {
+			code: 200,
+			msg: '验证成功',
+			data: {
+				role: role.tag,
+				name: role.name,
+				token: token,
+			}
 		}
 	}
 });
@@ -29,24 +84,9 @@ Mock.mock(RegExp('/mock/user/login'), res => {
 // 模拟接口
 Mock.mock(RegExp('/mock/user/logout'), res => {
 	console.log(res);
-	let item = qs.parse(res.url.split('?')[1]);
-	console.log(item)
-	let username = item.username;
-	let password = item.password;
-	if (username === 'admin' && password === '123456') {
-		return {
-			'code': '000',
-			'msg': '登陆成功',
-			'data': {
-				'orgCode': '35002',
-				'token': 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInVzZXJOYW1lIjoiYWRtaW4iLCJvcmdDb2RlIjoiMzUwMDAiLCJkZXB0Q29kZSI6IjM1MDAwIiwiYXVkIjoiYWRtaW4iLCJpc3MiOiJhZG1pbiIsImV4cCI6MTU5MzUzNTU5OH0.0pJAojRtT5lx6PS2gH_Q9BmBxeNlgBL37ABX22HyDlebbr66cCjVYZ0v0zbLO_9241FX9-FZpCkEqE98MQOyWw',
-			}
-		}
-	} else {
-		return {
-			'code': '999',
-			'msg': '登陆失败'
-		}
+	return {
+		code: 200,
+		msg: '退出成功！'
 	}
 });
 

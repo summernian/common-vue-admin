@@ -1,7 +1,7 @@
 @import '~ant-design-vue/dist/antd.less';
 
 @primary-color: #00bebe; // 全局主色
-@link-color: #f00; // 链接色
+@link-color: #007aff; // 链接色
 @border-radius-base: 4px;
 
 @text-color: rgba(4, 10, 41, 1);
@@ -30,42 +30,65 @@
 
 .ant-btn-background-ghost.ant-btn-primary:hover, 
 .ant-btn-background-ghost.ant-btn-primary:focus {
-  color: #21ccc6;
-  background-color: #F5FFFE!important;
-  border-color: #21ccc6;
+	color: #21ccc6;
+	background-color: #F5FFFE!important;
+	border-color: #21ccc6;
 }
 
 // tooltip
 .ant-tooltip-arrow::before {
-  width: 10px;
-  height: 10px;
-  background: #fff;
+	width: 10px;
+	height: 10px;
+	background: #fff;
 }
 .ant-tooltip-inner {
-  color: #040B29;
-  background: #fff;
+	color: #040B29;
+	background: #fff;
 }
 
-// table
+// table的滚动条隐藏轨道
 .ant-table-hide-scrollbar::-webkit-scrollbar-track {
-    box-shadow: none;
-    background: none;
+	box-shadow: none;
+	background: none;
 }
 .ant-table-hide-scrollbar::-webkit-scrollbar-thumb {
-    box-shadow: none;
-    background: none;
+	box-shadow: none;
+	background: none;
 }
+.ant-table-fixed-header .ant-table-scroll .ant-table-header::-webkit-scrollbar {
+	border: none;
+}
+
 .ant-table {
-// border: 1px solid #e8e8e8;
-    line-height: 1;
-    background: #fff;
+	line-height: 1;
+	// border: 1px solid #e8e8e8;
+	// background: #f5f6f7;
+	.ant-table-header {
+		background: none;
+	}
+	// 使轨道与背景同色
+	::-webkit-scrollbar-track {
+		background: #f5f6f7;
+	}
+	// 隐藏轨道
+	//（ps： 此处展示轨道，因为table有背景色，轨道放置在padding内，不展示轨道则会展示table的背景色，故注释）
+	//（另： 不能去除table的背景色，因为固定列的原因，如果不增加背景色，会看到固定列后面的东西，如果只给固定列增加背景色，则样式怪异）
+	// .ant-table-scroll,
+	// .ant-table-fixed-right, {
+	// 	::-webkit-scrollbar-track {
+	// 		display: none;
+	// 	}
+	// }
 }
+
 .ant-table.ant-table-empty {
-// border: 1px solid #e8e8e8;
-    border: none;
+	// border: 1px solid #e8e8e8;
+	border: none;
 }
-.ant-table-tbody > tr > td {
-    border: none;
+
+// 设置table头部样式
+.ant-table-thead > tr > th {
+	background-color: #F2F2F2;
 }
 
 .ant-table-tbody > tr.hover > td {
@@ -76,13 +99,20 @@
         border-left: 1px dashed @primary-color;
     }
     &:last-of-type {
-        border-right: 1px dashed @primary-color;
-}
+		border-right: 1px dashed @primary-color;
+	}
 }
 
 .ant-table-placeholder {
-    border-top: none;
-    border-bottom: none;
+	// 溢出的边框去掉
+	border-top: none;
+	border-bottom: none;
+	// 撑满所有高度 47是头部高度
+	height: calc(100% - 47px);
+	// empty居中
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 

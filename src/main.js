@@ -23,7 +23,7 @@ import './permission';
 
 // 需要mock再引入
 if(window.configure[process.env.NODE_ENV].mock) {
-	// require('./mock');
+	require('./mock');
 }
 
 Vue.config.productionTip = false;

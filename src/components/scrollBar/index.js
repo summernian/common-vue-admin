@@ -2,7 +2,7 @@ import { toObject, scrollbarWidth, addResizeListener, removeResizeListener } fro
 import Bar from './bar';
 
 export default {
-	name: 'Scrollbar',
+	name: 'CustomScrollbar',
 
 	components: {
 		Bar

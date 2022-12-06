@@ -7,7 +7,7 @@
 			</router-link>
 		</div>
 		<!-- nav -->
-		<scroll-bar class="side-wrap">
+		<c-scroll class="side-wrap">
 			<div class="menu-wrapper">
 				<template v-for="item in baseRoute">
 					<!-- 这部分基本没有 -->
@@ -24,7 +24,7 @@
 					</template>
 				</template>
 			</div>
-		</scroll-bar>
+		</c-scroll>
 	</div>
 </template>
 

@@ -1,4 +1,3 @@
-import { setCache } from '@/utils/session';
 import { baseRoutes, asyncRoutes } from '@/router';
 import router, { resetRouter } from '@/router';
 

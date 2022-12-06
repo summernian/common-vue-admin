@@ -7,10 +7,10 @@
 			</router-link>
 		</div>
 		<!-- nav -->
-		<scroll-bar class="side-wrap">
+		<c-scroll class="side-wrap">
 			<div class="menu-wrapper">
 				<template v-for="item in baseRoute">
-					<!-- 这部分基本没有 -->
+					<!-- 这部分基本没有，待修改 -->
 					<router-link v-if="!item.children && !item.hidden" :key="item.path" :to="item.path">
 						<a-icon v-if="item.icon" :type="item.icon" />
 						<span class="side-title">{{ item.meta.title }}</span>
@@ -24,7 +24,7 @@
 					</template>
 				</template>
 			</div>
-		</scroll-bar>
+		</c-scroll>
 	</div>
 </template>
 

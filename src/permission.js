@@ -9,8 +9,7 @@ import 'nprogress/nprogress.css'; // progress bar style
 // NProgress Configuration
 NProgress.configure({
 	showSpinner: false
-}); 
-
+});
 router.beforeEach(async (to, from, next) => {
 	NProgress.start();
 	document.title = getPageTitle(to.meta.title);
@@ -18,21 +17,18 @@ router.beforeEach(async (to, from, next) => {
 	if (to.path == '/login') {
 		console.log('前往登录');
 		next();
-		NProgress.done();
 	} else {
 		if (!isLogin) {
 			console.log('尚未登录，前往登录');
 			next('/login');
-			NProgress.done();
 		} else {
 			const userInfo = store.state.user.userInfo;
-			console.log('userinfo:',userInfo);
+			console.log('userinfo:', {...userInfo});
 			if (userInfo) {
-				console.log('已获取用户信息，跳转：',to.path);
+				console.log('已获取用户信息，指向：',to.path);
 				next();
-				NProgress.done();
 			} else {
-				console.log('未获取用户信息，跳转：',to.path);
+				console.log('未获取用户信息，前往：',to.path);
 				try {
 					const { role } = await store.dispatch('user/getInfo');
 					const accountRoutes = await store.dispatch('permission/getRoute', role);
@@ -52,6 +48,7 @@ router.beforeEach(async (to, from, next) => {
 			}
 		}
 	}
+	NProgress.done();
 });
 
 router.afterEach(() => {

@@ -47,6 +47,14 @@
 
 .loop(80);
 
+.show-lines(@lines: 2, @maxHeight: 28px) {
+    -webkit-line-clamp: @lines;
+    max-height: @maxHeight;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
 /* 条件注释 该属性下只有ie10和11能识别 */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 	html, 
