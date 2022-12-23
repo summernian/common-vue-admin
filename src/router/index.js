@@ -5,7 +5,6 @@ Vue.use(VueRouter);
 
 /**
  * @description 路由说明
- * @param {Number}  sort 动态引入的路由排序
  * @param {Object}  meta 路由属性
  * title: 页面标题，icon: 导航图标
  * role: 权限【 superAdmin、admin、user、null 】
