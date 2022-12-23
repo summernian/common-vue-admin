@@ -28,7 +28,7 @@ export const BASE_ROUTES = [
 		component: () => import('@/views/error/403'),
 		meta: {
 			hidden: true,
-			title: 'page 403'
+			title: 'error page 403'
 		}
 	},
 	{
