@@ -5,7 +5,6 @@ Vue.use(VueRouter);
 
 /**
  * @description 路由说明
- * @param {Boolean}  hidden 用来判断是否显示在侧边导航栏
  * @param {Number}  sort 动态引入的路由排序
  * @param {Object}  meta 路由属性
  * title: 页面标题，icon: 导航图标
