@@ -39,6 +39,13 @@ module.exports = {
 					javascriptEnabled: true,
 				},
             },
+			scss: {
+				// 此处踩坑 
+				// 1. `scss` 语法会要求语句结尾必须有分号，`sass` 则要求必须没有分号  
+				// 2. 注意键名 
+				//    sass-loader版本 7.x(data) 8.x(prependData) 9.x(additionalData)
+				prependData: `@import "~@/assets/css/variables.scss";`
+			}
         },
     },
 	
@@ -60,6 +67,24 @@ module.exports = {
 			opts[0].globalConfig = '/config.js'; 
 			return opts
 		});
+		// set svg-sprite-loader
+		// 清除配置
+		config.module
+			.rule('svg')  //找到svg-loader 
+			.exclude.add(resolve('src/plugin/svgIcons'))  //排除目录
+			.end();
+		// 添加配置
+		config.module
+			.rule('icons')
+			.test(/\.svg$/)  //正则匹配 格式为 svg
+			.include.add(resolve('src/plugin/svgIcons')) //只对该目录生效  当前目录指向自己项目svg的文件夹
+			.end()
+			.use('svg-sprite-loader')  //注入插件svg-sprite-loader
+			.loader('svg-sprite-loader')  //添加loader
+			.options({    //配置为 icon-文件名
+				symbolId: 'icon-[name]'
+			})
+			.end();
 		// 去除 vue-loader 警告
 		config.module.rule('vue').use('vue-loader').loader('vue-loader').tap( options => { 
 			options.prettify = false; 
@@ -110,20 +135,20 @@ module.exports = {
 		// 	[process.env.VUE_APP_BASE_API]: {
 		// 		target: "/",   // 实际跨域请求的API地址
 		// 		secure: false,   // https请求则使用true
-		//         changeOrigin: true,  // 跨域
-		//         // 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
-		//         pathRewrite: {
-		//           ["^" + process.env.VUE_APP_BASE_API] : '/',
-		//         }
+		// 		changeOrigin: true,  // 跨域
+		// 		// 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
+		// 		pathRewrite: {
+		// 			["^" + process.env.VUE_APP_BASE_API] : '/',
+		// 		}
 		// 	},
 		// 	'/api': {
 		// 		target: "/",   // 实际跨域请求的API地址
 		// 		secure: false,   // https请求则使用true
-		//         changeOrigin: true,  // 跨域
-		//         // 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
-		//         pathRewrite: {
-		//           '^/api': '/',
-		//         }
+		// 		changeOrigin: true,  // 跨域
+		// 		// 请求地址重写: http://xxx.com/api/login ⇒ http://api-url/login
+		// 		pathRewrite: {
+		// 			'^/api': '/',
+		// 		}
 		// 	}
 		// }
 	}
