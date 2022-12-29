@@ -55,11 +55,9 @@ npm run build
 
 
 ## 缺少:
-- 列表详情封装
-- 下拉枚举回显
+- eslint + prettier
 - 上传文件封装
-- 文件预览效果   
+- 文件预览效果 
 - 富文本编辑器
 - 地图组件封装
-- eslint + prettier
 - table内容、分页定制化
