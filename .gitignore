@@ -14,6 +14,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Package-lock
+package-lock.json
+
 # Editor directories and files
 .idea
 *.zip
