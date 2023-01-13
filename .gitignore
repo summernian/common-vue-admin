@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 /dist
-.history
 
 
 # local env files
@@ -19,8 +18,11 @@ package-lock.json
 
 # Editor directories and files
 .idea
-*.zip
 .vscode
+.history
+*.7z
+*.zip
+*.rar
 *.suo
 *.ntvs*
 *.njsproj
